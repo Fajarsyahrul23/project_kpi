@@ -6,22 +6,46 @@
         <div class="md:flex md:items-center md:justify-between">
             <div class="flex-1 min-w-0">
                 <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
-                    KPIs for BPD: {{ $bpd->no_bpd }}
+                    KPI for BPD: {{ $bpd->no_bpd }}
                 </h2>
                 <p class="mt-1 text-sm text-gray-500">
                     {{ $bpd->objective }}
                 </p>
             </div>
             <div class="mt-4 flex md:mt-0 md:ml-4 space-x-2">
-                <a href="{{ route('kpi.import.view', $bpd->id_bpd) }}"
-                    class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none transition duration-150 relative z-10">
-                    Import KPIs
-                </a>
+               <a href="{{ route('kpi.import.view', $bpd->id_bpd) }}"
+   class="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-md shadow-sm
+          text-sm font-medium text-gray-700 bg-white hover:bg-gray-50
+          focus:outline-none transition duration-150 relative z-10">
+    <!-- Upload Icon (hi-upload style) -->
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600"fill="none"viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round"stroke-linejoin="round"stroke-width="2" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M12 4v12m0 0l-4-4m4 4l4-4"/></svg>
+    <!-- Text -->
+    <span>Import KPI</span>
+</a>
 
-                <button onclick="toggleModal('createModal')" type="button"
-                    class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none transition duration-150 relative z-10">
-                    Add KPI
-                </button>
+
+<button onclick="toggleModal('createModal')" type="button"
+    class="inline-flex items-center gap-2 px-4 py-2 rounded-md shadow-sm
+           text-sm font-medium text-white
+           bg-indigo-600 hover:bg-indigo-700
+           focus:outline-none transition duration-150 relative z-10">
+    
+    <!-- ICON PLUS -->
+    <svg xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M12 4v16m8-8H4"/>
+    </svg>
+
+    <!-- TEXT -->
+    <span>Create KPI</span>
+</button>
+
+
             </div>
         </div>
 
@@ -83,25 +107,46 @@
                                         </td>
                                         <td class="px-3 py-4 whitespace-nowrap text-sm text-gray-500">{{ $kpi->com_actual_percent }}
                                         </td> 
-
-
-
                                         <td class="px-3 py-4 text-sm text-gray-500">{{ Str::limit($kpi->note, 15) }}</td>
-                                        <td
-                                            class="px-3 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2 relative z-10">
-                                            <button onclick="openEditModal(this)" data-kpi="{{ json_encode($kpi) }}"
-                                                class="text-indigo-600 hover:text-indigo-900 inline-block cursor-pointer">
-                                                Edit
-                                            </button>
+<td class="px-3 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2 relative z-10">
 
+    <!-- EDIT KPI (SAMA DENGAN BPD) -->
+    <button onclick="openEditModal(this)"
+        data-kpi='@json($kpi)'
+        class="text-yellow-500 hover:text-yellow-700 transition inline-block cursor-pointer"
+        title="Edit KPI">
 
-                                            <!-- <button onclick="openEditModal({{ $bpd }})" -->
-                                            <!-- class="text-yellow-600 hover:text-yellow-900 inline-block cursor-pointer">Edit</button> -->
+        <svg xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5 inline-block"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L9.832 16.82a4.5 4.5 0 01-1.897 1.13l-2.685.805.805-2.685a4.5 4.5 0 011.13-1.897L16.862 4.487zM19.5 7.125V19.5A2.25 2.25 0 0117.25 21.75H4.5A2.25 2.25 0 012.25 19.5V6.75A2.25 2.25 0 014.5 4.5h9.75" />
+        </svg>
+    </button>
 
+    <!-- DELETE KPI (SAMA DENGAN BPD) -->
+    <button onclick="openDeleteModal({{ $kpi->id_kpi }})"
+        class="text-red-600 hover:text-red-800 transition inline-block cursor-pointer"
+        title="Delete KPI">
 
-                                            <button onclick="openDeleteModal({{ $kpi->id_kpi }})"
-                                                class="text-red-600 hover:text-red-900 cursor-pointer inline-block">Delete</button>
-                                        </td>
+        <svg xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5 inline-block"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7h6m2 0H7m2-3h6a1 1 0 011 1v1H8V5a1 1 0 011-1z" />
+        </svg>
+    </button>
+
+</td>
+
                                     </tr>
                                 @empty
                                     <tr>

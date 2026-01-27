@@ -10,13 +10,22 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class BpdController extends Controller
 {
-    public function index()
-    {
-        $departmentId = Session::get('department_id');
-        $bpds = Bpd::where('id_department', $departmentId)->paginate(10);
-        $masterBpds = MasterBpd::all();
-        return view('bpd.index', compact('bpds', 'masterBpds'));
-    }
+ public function index(Request $request)
+{
+    $departmentId = Session::get('department_id');
+    $sort = $request->get('sort', 'asc');
+
+    $bpds = Bpd::where('id_department', $departmentId)
+                ->orderBy('no_bpd', $sort)
+                ->paginate(5)
+                ->appends(['sort' => $sort]);
+
+    $masterBpds = MasterBpd::all();
+
+    return view('bpd.index', compact('bpds', 'masterBpds', 'sort'));
+}
+
+
 
     public function exportPdf()
     {
