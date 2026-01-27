@@ -6,27 +6,61 @@
     <!-- Header -->
     <div class="flex items-center justify-between">
         <h1 class="text-2xl font-bold text-gray-900">BPD Management</h1>
-        <div class="flex space-x-2">
+        <div class="flex items-center space-x-3">
 
-<a href="{{ route('bpd.preview.pdf') }}"
-target="_blank"
-               class="bg-gray-600 hover:bg-gray-700 text-white font-bold p-2 rounded shadow transition duration-150 flex items-center">
-                <Icon PDF -->
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 20h9M12 4h9m-9 8h9M3 6h.01M3 12h.01M3 18h.01"/>
-                </svg>
-                Prewiew KPI
-            </a> 
+    <!-- Preview KPI -->
+    <a href="{{ route('bpd.preview.pdf') }}"
+       target="_blank"
+       class="inline-flex items-center gap-2
+              px-4 py-2
+              rounded-md
+              bg-gray-600 hover:bg-gray-700
+              text-white text-sm font-medium
+              shadow transition duration-150">
 
-            <button type="button" onclick="toggleModal('createModal')"
-               class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold p-2 rounded shadow transition duration-150 flex items-center">
-                <!-- Icon plus -->
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                </svg>
-                Create BPD
-            </button>
-        </div>
+        <!-- Icon book-open -->
+        <svg xmlns="http://www.w3.org/2000/svg"
+             class="h-4 w-4"
+             viewBox="0 0 24 24"
+             fill="none"
+             stroke="currentColor"
+             stroke-width="2"
+             stroke-linecap="round"
+             stroke-linejoin="round">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+        </svg>
+
+        <span>Preview KPI</span>
+    </a>
+
+    <!-- Create BPD -->
+    <button type="button"
+            onclick="toggleModal('createModal')"
+            class="inline-flex items-center gap-2
+                   px-4 py-2
+                   rounded-md
+                   bg-indigo-600 hover:bg-indigo-700
+                   text-white text-sm font-medium
+                   shadow transition duration-150">
+
+        <!-- Icon plus -->
+        <svg xmlns="http://www.w3.org/2000/svg"
+             class="h-4 w-4"
+             viewBox="0 0 24 24"
+             fill="none"
+             stroke="currentColor"
+             stroke-width="2"
+             stroke-linecap="round"
+             stroke-linejoin="round">
+            <path d="M12 5v14M5 12h14"/>
+        </svg>
+
+        <span>Create BPD</span>
+    </button>
+
+</div>
+
     </div>
 
     <!-- Table -->
