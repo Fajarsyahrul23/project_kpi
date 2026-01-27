@@ -14,6 +14,7 @@ class Kpi extends Model
 
     protected $fillable = [
         'id_bpd',
+        'dept_code',
         'definition',
         'periode',
         'target',

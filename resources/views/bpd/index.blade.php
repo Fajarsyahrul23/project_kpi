@@ -7,14 +7,17 @@
     <div class="flex items-center justify-between">
         <h1 class="text-2xl font-bold text-gray-900">BPD Management</h1>
         <div class="flex space-x-2">
-            <!-- <a href="{{ route('bpd.export.pdf') }}"
+
+<a href="{{ route('bpd.preview.pdf') }}"
+target="_blank"
                class="bg-gray-600 hover:bg-gray-700 text-white font-bold p-2 rounded shadow transition duration-150 flex items-center">
                 <Icon PDF -->
-                <!-- <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 20h9M12 4h9m-9 8h9M3 6h.01M3 12h.01M3 18h.01"/>
                 </svg>
-                PDF
-            </a>  -->
+                Prewiew KPI
+            </a> 
+
             <button type="button" onclick="toggleModal('createModal')"
                class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold p-2 rounded shadow transition duration-150 flex items-center">
                 <!-- Icon plus -->
@@ -31,10 +34,7 @@
         <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
                 <tr>
-                    <!-- Nomor urut -->
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        No
-                    </th>
+                    
                     <!-- No BPD dengan sort -->
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         <a href="{{ route('bpd.index', ['sort' => ($sort == 'asc' ? 'desc' : 'asc')]) }}">
@@ -59,16 +59,18 @@
                     $no = ($bpds->currentPage() - 1) * $bpds->perPage() + 1;
                 @endphp
                 @forelse($bpds as $bpd)
-                <tr>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $no++ }}</td>
+                <tr> 
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $bpd->no_bpd }}</td>
                     <td class="px-6 py-4 text-sm text-gray-500">{{ Str::limit($bpd->objective, 50) }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
                         <!-- Measurements icon -->
                       <a href="{{ route('kpi.index', $bpd->id_bpd) }}"
                                     class="text-indigo-600 hover:text-indigo-900 bg-indigo-50 px-3 py-1 rounded-full inline-block">Details KPI</a>
+                                    
+    <span class="mx-2 text-gray-400 font-semibold">|</span>
                         <!-- Edit icon -->
                       <button onclick="openEditModal({{ $bpd }})"
+
     class="text-yellow-500 hover:text-yellow-700 transition">
     <svg xmlns="http://www.w3.org/2000/svg"
         class="h-5 w-5 inline-block"
@@ -80,6 +82,7 @@
     </svg>
 </button>
 
+    <span class="mx-2 text-gray-400 font-semibold">|</span>
                         <!-- Delete icon -->
                             <button onclick="openDeleteModal({{ $bpd->id_bpd }}, '{{ $bpd->no_bpd }}')"
     class="text-red-600 hover:text-red-800 transition">

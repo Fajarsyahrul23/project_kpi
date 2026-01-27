@@ -50,49 +50,50 @@
         </div>
 
         <!-- Table -->
-        <div class="flex flex-col relative z-0">
-            <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                    <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                        <table class="min-w-full divide-y divide-gray-200">
+       <table class="min-w-full divide-y divide-gray-200">
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th scope="col"
-                                        class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        class="px-3 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
                                         No BPD</th>
                                     <th scope="col"
-                                        class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        class="px-3 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
+                                        Dept Code</th>
+                                    <th scope="col"
+                                        class="px-3 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
                                         Objective</th>
                                     <th scope="col"
-                                        class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        class="px-3 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
                                         Definition</th>
                                     <th scope="col"
-                                        class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        class="px-3 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
                                         Periode</th>
                                     <th scope="col"
-                                        class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        class="px-3 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
                                         Target</th>
                                     <th scope="col"
-                                        class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        class="px-3 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
                                         Actual</th>
                                     <th scope="col"
-                                        class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        class="px-3 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
                                         Com Target</th>
                                     <th scope="col"
-                                        class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        class="px-3 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
                                         Com Actual</th>
                                     <th scope="col"
-                                        class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        class="px-3 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
                                         Note</th>
                                     <th scope="col"
-                                        class="px-3 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        class="px-3 py-3 text-right text-xs font-medium text-gray-900 uppercase tracking-wider">
                                         Actions</th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
                                 @forelse($kpis as $kpi)
                                     <tr>
-                                        <td class="px-3 py-4 whitespace-nowrap text-sm text-gray-900">{{ $kpi->bpd->no_bpd }}
+                                        <td class="px-3 py-4 whitespace-nowrap text-sm text-gray-500">{{ $kpi->bpd->no_bpd }}
+                                        </td>
+                                        <td class="px-3 py-4 whitespace-nowrap text-sm text-gray-500">{{ $kpi->bpd->department->dept_code ?? '-' }}
                                         </td>
                                         <td class="px-3 py-4 text-sm text-gray-500">{{ Str::limit($kpi->bpd->objective, 20) }}
                                         </td>
@@ -102,13 +103,12 @@
                                         </td>
                                        <td class="px-3 py-4 whitespace-nowrap text-sm text-gray-500">{{ $kpi->target }}</td>
                                         <td class="px-3 py-4 whitespace-nowrap text-sm text-gray-500">{{ $kpi->actual }}</td>
-
-<td class="px-3 py-4 whitespace-nowrap text-sm text-gray-500">{{ $kpi->com_target_percent }}
+                                        <td class="px-3 py-4 whitespace-nowrap text-sm text-gray-500">{{ $kpi->com_target_percent }}
                                         </td>
                                         <td class="px-3 py-4 whitespace-nowrap text-sm text-gray-500">{{ $kpi->com_actual_percent }}
                                         </td> 
                                         <td class="px-3 py-4 text-sm text-gray-500">{{ Str::limit($kpi->note, 15) }}</td>
-<td class="px-3 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2 relative z-10">
+                                        <td class="px-3 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2 relative z-10">
 
     <!-- EDIT KPI (SAMA DENGAN BPD) -->
     <button onclick="openEditModal(this)"
@@ -128,6 +128,7 @@
         </svg>
     </button>
 
+    <span class="mx-2 text-gray-400 font-semibold">|</span> 
     <!-- DELETE KPI (SAMA DENGAN BPD) -->
     <button onclick="openDeleteModal({{ $kpi->id_kpi }})"
         class="text-red-600 hover:text-red-800 transition inline-block cursor-pointer"

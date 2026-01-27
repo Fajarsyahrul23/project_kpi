@@ -26,15 +26,27 @@ class BpdController extends Controller
 }
 
 
+public function previewPdf()
+{
+    $masterBpds = MasterBpd::orderBy('no_bpd')->get();
 
-    public function exportPdf()
-    {
-        $departmentId = Session::get('department_id');
-        $bpds = Bpd::where('id_department', $departmentId)->get();
+    $pdf = Pdf::loadView('bpd.pdf', compact('masterBpds'));
 
-        $pdf = Pdf::loadView('bpd.pdf', compact('bpds'));
-        return $pdf->download('bpd_list.pdf');
-    }
+    // 🔥 INI KUNCI
+    return $pdf->stream('Master_BPD_Preview.pdf');
+}
+
+
+
+
+    // public function exportPdf()
+    // {
+    //     $departmentId = Session::get('department_id');
+    //     $bpds = Bpd::where('id_department', $departmentId)->get();
+
+    //     $pdf = Pdf::loadView('bpd.pdf', compact('bpds'));
+    //     return $pdf->download('bpd_list.pdf');
+    // }
 
     public function store(Request $request)
     {

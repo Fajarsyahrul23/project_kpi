@@ -14,9 +14,12 @@ class KpiController extends Controller
 {
     public function index($id_bpd)
     {
+        
         $bpd = Bpd::where('id_bpd', $id_bpd)
             ->where('id_department', Session::get('department_id'))
             ->firstOrFail();
+
+$deptCode = session('department_code');
 
         $kpis = Kpi::where('id_bpd', $id_bpd)->with('bpd')->get();
 
@@ -36,6 +39,7 @@ class KpiController extends Controller
     {
         $request->validate([
             'id_bpd' => 'required|exists:tbl_bpds,id_bpd',
+            'department_code' => 'nullable|string',
             'definition' => 'nullable|string',
             'periode' => 'nullable|date',
             'com_target' => 'nullable|numeric',
@@ -52,6 +56,7 @@ class KpiController extends Controller
 
         Kpi::create([
             'id_bpd' => $request->id_bpd,
+            'department_code' => session ('department_code'),
             'definition' => $request->definition,
             'periode' => $request->periode,
             'com_target' => $request->com_target,

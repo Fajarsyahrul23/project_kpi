@@ -14,11 +14,12 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('/login', 'authenticate')->name('authenticate');
     Route::post('/logout', 'logout')->name('logout');
 });
-
 Route::middleware(['department.auth'])->group(function () {
-    // BPD Routes
-    Route::get('/bpd/export-pdf', [BpdController::class, 'exportPdf'])->name('bpd.export.pdf');
+
+    Route::get('/bpd/preview/pdf', [BpdController::class, 'previewPdf'])
+    ->name('bpd.preview.pdf');
     Route::resource('bpd', BpdController::class);
+
 
     // KPI Routes
     Route::get('/bpd/{id_bpd}/kpi', [KpiController::class, 'index'])->name('kpi.index');
