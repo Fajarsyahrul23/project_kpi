@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Department;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
@@ -19,20 +20,25 @@ class AuthController extends Controller
     public function authenticate(Request $request)
     {
         $request->validate([
-            'pin' => 'required|numeric',
+            'pin' => 'required|numeric|min_digits:6',
         ]);
 
-        $department = Department::where('pin', $request->pin)->first();
+        // Optimization: Use cursor() to iterate through departments with low memory usage.
+        // Since we only have the PIN, we must verify each hash using Hash::check().
+        // For production: Ensure the number of departments is relatively small,
+        // as BCrypt checks are computationally expensive.
+        foreach (Department::cursor() as $department) {
+            if (Hash::check($request->pin, $department->pin)) {
+                Session::put('department_id', $department->id_department);
+                Session::put('department_code', $department->dept_code);
 
-        if ($department) {
-            Session::put('department_id', $department->id_department);
-            Session::put('department_code', $department->dept_code);
-            return redirect()->route('bpd.index');
+                return redirect()->route('bpd.index');
+            }
         }
 
         return back()->withErrors([
             'pin' => 'The provided PIN is incorrect.',
-        ]);
+        ])->withInput();
     }
 
     public function logout()
