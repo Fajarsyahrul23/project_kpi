@@ -107,7 +107,7 @@
 
     <!-- FOOTER -->
     <div class="footer">
-        MASTER BPD | Page {PAGE_NUM} of {PAGE_COUNT}
+        MASTER BPD | PT SUMMIT ADYAWINSA INDONESIA
     </div>
 
 </body>
